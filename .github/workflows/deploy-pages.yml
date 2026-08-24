@@ -2,7 +2,11 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main
+      - master
+      # The repository was created empty, so this branch is currently the default.
+      - claude/deploy-gaia-climate-lab-gh-pages-jtzsq5
   workflow_dispatch:
 
 permissions:
