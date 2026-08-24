@@ -1,0 +1,4 @@
+Gaia Climate Lab v9
+Published URL: https://gaia-climate-lab.miso93.chatgpt.site
+Source commit: ee9bddd4f7023a0935c6f5d64891de80abf988d4
+Packaged: 2026-08-22

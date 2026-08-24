@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble static site from the client-only bundle
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          cp -r PLAY_OFFLINE _site
+          rm -f _site/README.txt
+          # Pages must not run Jekyll over the bundle.
+          touch _site/.nojekyll
+          # The hosted copy is not the offline edition; drop that from the title.
+          sed -i 's|<title>Gaia Climate Lab — Offline Edition</title>|<title>Gaia Climate Lab</title>|' _site/index.html
+          sed -i 's|An offline terrestrial-planet|A terrestrial-planet|' _site/index.html
+          test -f _site/gaia-climate-lab.js
+          test -f _site/gaia-climate-lab.css
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
