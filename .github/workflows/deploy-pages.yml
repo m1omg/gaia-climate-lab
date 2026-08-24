@@ -39,6 +39,10 @@ jobs:
           test -f _site/gaia-climate-lab.css
 
       - uses: actions/configure-pages@v5
+        # Turns Pages on (source: GitHub Actions) the first time this runs,
+        # so no manual repository-settings step is needed.
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
