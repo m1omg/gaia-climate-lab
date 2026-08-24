@@ -33,10 +33,10 @@ on every push to the default branch. The `SOURCE/` project targets Cloudflare
 Workers with server rendering, so it is not statically exportable — the client
 bundle carries the same simulation, controls, renderer and presets.
 
-One-time setup, required before the first deploy can succeed: **Settings →
-Pages → Build and deployment → Source: GitHub Actions**, then re-run the
-workflow. The workflow's own token is not allowed to create the Pages site, so
-this switch cannot be automated from CI.
+Pages is enabled for this repository with **Source: GitHub Actions**. That
+switch is a one-time manual step — a workflow's own token is not allowed to
+create the Pages site — so if the site is ever re-created from scratch, set it
+again under **Settings → Pages → Build and deployment**.
 
 ## Notes
 
